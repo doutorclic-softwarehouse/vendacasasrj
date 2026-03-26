@@ -3,60 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Venda Casas RJ | Premium</title>
+    <title>Venda Casas RJ | VIP Glass</title>
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Venda Casas RJ | Atendimento VIP">
+    <meta property="og:description" content="Qualifique seu perfil para ofertas exclusivas.">
     <meta property="og:image" content="https://i.ibb.co/qFhcTPdq/Logo-venda-Casas-Sem-Fundo.png">
 
     <style>
-        body { background-color: #0a0e17; color: #ffffff; font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .container { background: #141a29; padding: 30px; border-radius: 20px; width: 90%; max-width: 400px; text-align: center; border: 1px solid #3a4763; }
-        .logo { max-width: 180px; margin-bottom: 20px; }
-        .title { color: #8A2BE2; font-weight: bold; font-size: 22px; display: block; margin-bottom: 10px; }
-        .field-group { text-align: left; margin-bottom: 15px; display: none; }
-        .show { display: block !important; }
-        label { color: #8A2BE2; font-size: 12px; font-weight: bold; display: block; margin-bottom: 5px; }
-        select { width: 100%; padding: 12px; background: #1f293d; border: 1px solid #3a4763; color: #fff; border-radius: 8px; }
-        button { width: 100%; padding: 15px; background: #8A2BE2; color: #fff; border: none; border-radius: 30px; font-weight: bold; cursor: pointer; margin-top: 20px; }
-    </style>
-</head>
-<body>
+        :root {
+            --beterraba: #5e002a;
+            --beterraba-glow: #800020;
+            --glass-bg: rgba(20, 0, 10, 0.7);
+        }
 
-    <div class="container">
-        <img src="https://i.ibb.co/qFhcTPdq/Logo-venda-Casas-Sem-Fundo.png" class="logo">
-        <span class="title">QUALIFICAÇÃO PREMIUM</span>
+        body { 
+            background: radial-gradient(circle, #1a000a 0%, #050002 100%);
+            color: #fff; 
+            font-family: 'Segoe UI', sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* EFEITO VIDRO FUMÊ (GLASSMORPHISM) */
+        .container { 
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px); /* O segredo do desfoque */
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px 30px; 
+            border-radius: 30px; 
+            width: 100%; 
+            max-width: 380px; 
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6), inset 0 0 10px rgba(94, 0, 42, 0.2);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .logo { max-width: 170px; margin-bottom: 20px; }
+        .vip-title { color: #d4af37; font-weight: 900; font-size: 26px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; display: block; }
+        .sub { color: #ccc; font-size: 13px; margin-bottom: 30px; display: block; }
+
+        /* CAMPOS DINÂMICOS */
+        .field-group { text-align: left; margin-bottom: 18px; display: none; opacity: 0; }
+        .show { display: block !important; animation: slideIn 0.5s forwards; }
+
+        @keyframes slideIn {
+            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(10px); }
+        }
+
+        label { color: var(--beterraba-glow); font-size: 10px; text-transform: uppercase; font-weight: bold; margin-bottom: 6px; display: block; letter-spacing: 1px; }
         
-        <form id="leadForm">
-            <div class="field-group show">
-                <label>O QUE VOCÊ BUSCA?</label>
-                <select id="tipo_servico" onchange="atualizar()">
-                    <option value="" disabled selected>Escolha...</option>
-                    <option value="comprar">Comprar Imóvel</option>
-                    <option value="alugar">Aluguel Fixo</option>
-                </select>
-            </div>
-
-            <div id="f_quartos" class="field-group">
-                <label>QUARTOS</label>
-                <select id="quartos">
-                    <option>1 Quarto</option>
-                    <option>2 Quartos</option>
-                    <option>3+ Quartos</option>
-                </select>
-            </div>
-
-            <button type="button" onclick="enviar()">CONSULTAR AGORA</button>
-        </form>
-    </div>
-
-    <script>
-        function atualizar() {
-            document.getElementById('f_quartos').classList.add('show');
+        select { 
+            width: 100%; padding: 14px; background: rgba(255,255,255,0.05); 
+            border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 12px; outline: none; cursor: pointer;
         }
-        function enviar() {
-            const tipo = document.getElementById('tipo_servico').value;
-            const q = document.getElementById('quartos').value;
-            const msg = encodeURIComponent(`Olá! Quero atendimento para ${tipo} com ${q}.`);
-            window.open(`https://wa.me/5522999595115?text=${msg}`, '_blank');
+
+        /* BOTÃO PRINCIPAL */
+        .btn-main { 
+            width: 100%; padding: 18px; background: linear-gradient(45deg, var(--beterraba), var(--beterraba-glow)); 
+            color: #fff; border: none; border-radius: 50px; font-weight: 800; text-transform: uppercase; 
+            cursor: pointer; margin-top: 20px; transition: 0.3s; box-shadow: 0 4px 15px rgba(94, 0, 42, 0.4);
         }
-    </script>
-</body>
-</html>
+        .btn-main:hover { transform: translateY(-3px); filter: brightness(1.2); }
+
+        /* BOTÃO FLUTUANTE WHATSAPP */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
