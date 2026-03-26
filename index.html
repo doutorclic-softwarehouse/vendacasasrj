@@ -3,19 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Venda Casas RJ | Qualificação Premium</title>
-
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Venda Casas RJ | Encontre seu Imóvel Ideal">
-    <meta property="og:description" content="Atendimento exclusivo em Unamar e Região dos Lagos. Qualifique seu perfil.">
+    <title>Venda Casas RJ | Premium</title>
     <meta property="og:image" content="https://i.ibb.co/qFhcTPdq/Logo-venda-Casas-Sem-Fundo.png">
-    <meta property="og:image:width" content="400">
-    <meta property="og:image:height" content="400">
-    <meta property="og:url" content="https://vendacasasrj.com.br">
 
     <style>
-        /* NOVA PALETA DE CORES PREMIUM */
-        :root {
-            --bg-page: #0a0e17;        /* Azul Marinho quase preto */
-            --bg-container: #141a29;   /* Azul Marinho escuro */
-            --primary-accent: #8A2BE2;  /* Lilás Vibrante */
+        body { background-color: #0a0e17; color: #ffffff; font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .container { background: #141a29; padding: 30px; border-radius: 20px; width: 90%; max-width: 400px; text-align: center; border: 1px solid #3a4763; }
+        .logo { max-width: 180px; margin-bottom: 20px; }
+        .title { color: #8A2BE2; font-weight: bold; font-size: 22px; display: block; margin-bottom: 10px; }
+        .field-group { text-align: left; margin-bottom: 15px; display: none; }
+        .show { display: block !important; }
+        label { color: #8A2BE2; font-size: 12px; font-weight: bold; display: block; margin-bottom: 5px; }
+        select { width: 100%; padding: 12px; background: #1f293d; border: 1px solid #3a4763; color: #fff; border-radius: 8px; }
+        button { width: 100%; padding: 15px; background: #8A2BE2; color: #fff; border: none; border-radius: 30px; font-weight: bold; cursor: pointer; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="https://i.ibb.co/qFhcTPdq/Logo-venda-Casas-Sem-Fundo.png" class="logo">
+        <span class="title">QUALIFICAÇÃO PREMIUM</span>
+        
+        <form id="leadForm">
+            <div class="field-group show">
+                <label>O QUE VOCÊ BUSCA?</label>
+                <select id="tipo_servico" onchange="atualizar()">
+                    <option value="" disabled selected>Escolha...</option>
+                    <option value="comprar">Comprar Imóvel</option>
+                    <option value="alugar">Aluguel Fixo</option>
+                </select>
+            </div>
+
+            <div id="f_quartos" class="field-group">
+                <label>QUARTOS</label>
+                <select id="quartos">
+                    <option>1 Quarto</option>
+                    <option>2 Quartos</option>
+                    <option>3+ Quartos</option>
+                </select>
+            </div>
+
+            <button type="button" onclick="enviar()">CONSULTAR AGORA</button>
+        </form>
+    </div>
+
+    <script>
+        function atualizar() {
+            document.getElementById('f_quartos').classList.add('show');
+        }
+        function enviar() {
+            const tipo = document.getElementById('tipo_servico').value;
+            const q = document.getElementById('quartos').value;
+            const msg = encodeURIComponent(`Olá! Quero atendimento para ${tipo} com ${q}.`);
+            window.open(`https://wa.me/5522999595115?text=${msg}`, '_blank');
+        }
+    </script>
+</body>
+</html>
