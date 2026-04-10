@@ -21,28 +21,38 @@ body {
     min-height: 100vh;
 }
 
-/* CARD */
+/* CONTAINER */
 .container {
+    position: relative;
     background: #fff;
     padding: 30px 25px;
     border-radius: 20px;
     width: 100%;
     max-width: 400px;
     text-align: center;
-    position: relative;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+    z-index: 1;
 }
 
 /* BORDA NEON */
 .container::before {
     content: "";
     position: absolute;
-    inset: -2px;
+    inset: -3px;
     border-radius: 22px;
     background: linear-gradient(45deg, #ff6a00, #ff8c3a, #ff6a00);
     z-index: -1;
-    filter: blur(8px);
-    opacity: 0.8;
+}
+
+/* GLOW */
+.container::after {
+    content: "";
+    position: absolute;
+    inset: -6px;
+    border-radius: 24px;
+    background: linear-gradient(45deg, #ff6a00, #ff8c3a, #ff6a00);
+    filter: blur(12px);
+    z-index: -2;
+    opacity: 0.7;
 }
 
 /* LOGO */
@@ -51,9 +61,9 @@ body {
     margin: 0 auto 15px;
     display: block;
     mix-blend-mode: multiply;
-    filter: drop-shadow(0 0 6px rgba(255,106,0,0.35));
 }
 
+/* TEXTOS */
 .title {
     font-size: 22px;
     font-weight: 800;
@@ -73,6 +83,7 @@ body {
     margin-bottom: 20px;
 }
 
+/* CAMPOS */
 .field-group {
     text-align: left;
     margin-bottom: 15px;
@@ -107,6 +118,7 @@ select, input {
     border: 1px solid #ddd;
 }
 
+/* BOTÃO CTA PULSANTE */
 button {
     width: 100%;
     padding: 16px;
@@ -117,10 +129,30 @@ button {
     font-weight: 800;
     cursor: pointer;
     margin-top: 15px;
+    position: relative;
+    z-index: 1;
+}
+
+/* EFEITO PULSE */
+button::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50px;
+    background: linear-gradient(45deg, var(--laranja), var(--roxo));
+    z-index: -1;
+    animation: pulseBtn 1.8s infinite;
+}
+
+@keyframes pulseBtn {
+    0% { transform: scale(1); opacity: 0.7; }
+    70% { transform: scale(1.08); opacity: 0; }
+    100% { opacity: 0; }
 }
 
 button:disabled {
     opacity: 0.5;
+    animation: none;
 }
 
 /* WHATSAPP FLOAT */
@@ -138,7 +170,6 @@ button:disabled {
     justify-content: center;
     font-size: 28px;
     text-decoration: none;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
     z-index: 999;
 }
 
@@ -239,7 +270,7 @@ button:disabled {
 </div>
 
 <button id="btnEnviar" type="button" onclick="enviarZap()" disabled>
-Ver imóveis
+Ver imóveis disponíveis
 </button>
 
 </form>
@@ -248,17 +279,18 @@ Ver imóveis
 
 </div>
 
-<a href="https://wa.me/5522992414173" class="whatsapp-float">💬</a>
+<!-- BOTÃO WHATSAPP -->
+<a href="https://wa.me/5522992414173?text=Olá!%20Vim%20pelo%20site" 
+   class="whatsapp-float" 
+   target="_blank">
+   💬
+</a>
 
 <script>
 function atualizarFunil() {
     const tipo = document.getElementById('tipo_servico').value;
 
     document.getElementById('btnEnviar').disabled = false;
-
-    document.querySelectorAll('.field-group').forEach(el => {
-        if (!el.classList.contains('show')) el.style.display = 'none';
-    });
 
     document.getElementById('f_urgencia').classList.add('show');
     document.getElementById('f_quartos').classList.add('show');
