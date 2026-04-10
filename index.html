@@ -9,7 +9,6 @@
 :root {
     --laranja: #ff6a00;
     --roxo: #6a2cff;
-    --bg: #f5f6fb;
 }
 
 body {
@@ -22,14 +21,28 @@ body {
     min-height: 100vh;
 }
 
+/* CARD */
 .container {
     background: #fff;
     padding: 30px 25px;
     border-radius: 20px;
     width: 100%;
     max-width: 400px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.08);
     text-align: center;
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+}
+
+/* BORDA NEON */
+.container::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: 22px;
+    background: linear-gradient(45deg, #ff6a00, #ff8c3a, #ff6a00);
+    z-index: -1;
+    filter: blur(8px);
+    opacity: 0.8;
 }
 
 /* LOGO */
@@ -37,7 +50,8 @@ body {
     max-width: 160px;
     margin: 0 auto 15px;
     display: block;
-    filter: drop-shadow(0 0 8px rgba(255,106,0,0.4));
+    mix-blend-mode: multiply;
+    filter: drop-shadow(0 0 6px rgba(255,106,0,0.35));
 }
 
 .title {
@@ -103,16 +117,45 @@ button {
     font-weight: 800;
     cursor: pointer;
     margin-top: 15px;
-    transition: 0.2s;
 }
 
 button:disabled {
     opacity: 0.5;
-    cursor: not-allowed;
 }
 
-button:hover:not(:disabled) {
-    transform: scale(1.03);
+/* WHATSAPP FLOAT */
+.whatsapp-float {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #25d366, #128c7e);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    text-decoration: none;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    z-index: 999;
+}
+
+.whatsapp-float::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: rgba(37,211,102,0.5);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 0.7; }
+    70% { transform: scale(1.6); opacity: 0; }
+    100% { opacity: 0; }
 }
 
 .footer-text {
@@ -127,152 +170,134 @@ button:hover:not(:disabled) {
 
 <div class="container">
 
-    <!-- LOGO CORRIGIDA -->
-    <img src="https://i.ibb.co/HDWMYfkJ/venda-logo.jpg" class="logo" alt="Logo">
+<img src="https://i.ibb.co/HDWMYfkJ/venda-logo.jpg" class="logo">
 
-    <div class="title">Encontre seu imóvel ideal</div>
-    <div class="sub">Filtramos as melhores opções pra você</div>
-    <div class="urgencia">🔥 Temos imóveis com desconto HOJE</div>
+<div class="title">Encontre seu imóvel ideal</div>
+<div class="sub">Filtramos as melhores opções pra você</div>
+<div class="urgencia">🔥 Temos imóveis com desconto HOJE</div>
 
-    <form id="leadForm">
+<form>
 
-        <!-- NOME -->
-        <div class="field-group show" style="display:block;">
-            <label>Seu nome</label>
-            <input type="text" id="nome" placeholder="Digite seu nome">
-        </div>
+<div class="field-group show" style="display:block;">
+<label>Seu nome</label>
+<input type="text" id="nome">
+</div>
 
-        <div class="field-group show" style="display:block;">
-            <label>O que você busca hoje?</label>
-            <select id="tipo_servico" onchange="atualizarFunil()">
-                <option value="" disabled selected>Escolha uma opção...</option>
-                <option value="comprar">Comprar um Imóvel</option>
-                <option value="alugar_fixo">Aluguel Fixo (Mensal)</option>
-                <option value="temporada">Aluguel de Temporada</option>
-            </select>
-        </div>
+<div class="field-group show" style="display:block;">
+<label>Seu telefone</label>
+<input type="tel" id="telefone">
+</div>
 
-        <div id="f_quartos" class="field-group">
-            <label>Quantidade de Quartos</label>
-            <select id="quartos">
-                <option value="">Selecione</option>
-                <option>1 Quarto</option>
-                <option>2 Quartos</option>
-                <option>3 Quartos ou mais</option>
-            </select>
-        </div>
+<div class="field-group show" style="display:block;">
+<label>O que você busca?</label>
+<select id="tipo_servico" onchange="atualizarFunil()">
+<option value="">Escolha...</option>
+<option value="comprar">Comprar</option>
+<option value="alugar_fixo">Alugar</option>
+<option value="temporada">Temporada</option>
+</select>
+</div>
 
-        <div id="f_piscina" class="field-group">
-            <label>Deseja Piscina?</label>
-            <select id="piscina">
-                <option value="">Selecione</option>
-                <option>Com Piscina (Indispensável)</option>
-                <option>Sem Piscina / Tanto faz</option>
-            </select>
-        </div>
+<div id="f_urgencia" class="field-group">
+<label>Quando pretende fechar?</label>
+<select id="urgencia">
+<option value="">Selecione</option>
+<option>Imediato</option>
+<option>Até 30 dias</option>
+<option>Até 3 meses</option>
+<option>Só pesquisando</option>
+</select>
+</div>
 
-        <div id="f_venda" class="field-group">
-            <label>Faixa de Investimento</label>
-            <select id="valor_venda">
-                <option>Até R$ 150 mil</option>
-                <option>R$ 150 mil a R$ 250 mil</option>
-                <option>R$ 250 mil a R$ 450 mil</option>
-                <option>Acima de R$ 450 mil</option>
-            </select>
-        </div>
+<div id="f_quartos" class="field-group">
+<label>Quartos</label>
+<select id="quartos">
+<option value="">Selecione</option>
+<option>1</option>
+<option>2</option>
+<option>3+</option>
+</select>
+</div>
 
-        <div id="f_pagamento" class="field-group">
-            <label>Como pretende pagar?</label>
-            <select id="forma_pagamento">
-                <option>Entrada + Parcelas Diretas</option>
-                <option>Pagamento À Vista</option>
-                <option>Financiamento Bancário</option>
-                <option>Permuta</option>
-            </select>
-        </div>
+<div id="f_piscina" class="field-group">
+<label>Piscina?</label>
+<select id="piscina">
+<option value="">Selecione</option>
+<option>Sim</option>
+<option>Não</option>
+</select>
+</div>
 
-        <div id="f_aluguel" class="field-group">
-            <label>Preço do Aluguel Mensal</label>
-            <select id="valor_aluguel">
-                <option>R$ 600 a R$ 1.000</option>
-                <option>R$ 1.000 a R$ 2.000</option>
-                <option>Acima de R$ 2.000</option>
-            </select>
-        </div>
+<div id="f_credito" class="field-group">
+<label>Crédito aprovado?</label>
+<select id="credito">
+<option value="">Selecione</option>
+<option>Sim</option>
+<option>Em análise</option>
+<option>Não</option>
+</select>
+</div>
 
-        <div id="f_temporada" class="field-group">
-            <label>Média de Diária</label>
-            <select id="valor_temporada">
-                <option>Até R$ 300 / dia</option>
-                <option>R$ 300 a R$ 600 / dia</option>
-                <option>Acima de R$ 600 / dia</option>
-            </select>
-        </div>
+<button id="btnEnviar" type="button" onclick="enviarZap()" disabled>
+Ver imóveis
+</button>
 
-        <button id="btnEnviar" type="button" onclick="enviarZap()" disabled>
-            Ver imóveis disponíveis
-        </button>
+</form>
 
-    </form>
-
-    <div class="footer-text">Venda Casas RJ</div>
+<div class="footer-text">Venda Casas RJ</div>
 
 </div>
 
+<a href="https://wa.me/5522992414173" class="whatsapp-float">💬</a>
+
 <script>
 function atualizarFunil() {
-    const selecao = document.getElementById('tipo_servico').value;
+    const tipo = document.getElementById('tipo_servico').value;
 
-    const campos = document.querySelectorAll('#f_quartos, #f_piscina, #f_venda, #f_pagamento, #f_aluguel, #f_temporada');
-    campos.forEach(campo => campo.classList.remove('show'));
+    document.getElementById('btnEnviar').disabled = false;
 
-    // reset
-    document.querySelectorAll('select').forEach(select => {
-        if (select.id !== 'tipo_servico') {
-            select.selectedIndex = 0;
-        }
+    document.querySelectorAll('.field-group').forEach(el => {
+        if (!el.classList.contains('show')) el.style.display = 'none';
     });
 
-    if (selecao) {
-        document.getElementById('f_quartos').classList.add('show');
-        document.getElementById('f_piscina').classList.add('show');
-        document.getElementById('btnEnviar').disabled = false;
-    }
+    document.getElementById('f_urgencia').classList.add('show');
+    document.getElementById('f_quartos').classList.add('show');
+    document.getElementById('f_piscina').classList.add('show');
 
-    if (selecao === "comprar") {
-        document.getElementById('f_venda').classList.add('show');
-        document.getElementById('f_pagamento').classList.add('show');
-    } else if (selecao === "alugar_fixo") {
-        document.getElementById('f_aluguel').classList.add('show');
-    } else if (selecao === "temporada") {
-        document.getElementById('f_temporada').classList.add('show');
+    if (tipo === "comprar") {
+        document.getElementById('f_credito').classList.add('show');
     }
 }
 
 function enviarZap() {
-    const nome = document.getElementById('nome').value || "Cliente";
+    const nome = document.getElementById('nome').value;
+    const tel = document.getElementById('telefone').value;
+    const urgencia = document.getElementById('urgencia').value;
     const tipo = document.getElementById('tipo_servico').value;
     const quartos = document.getElementById('quartos').value;
     const piscina = document.getElementById('piscina').value;
 
-    if (!tipo || !quartos || !piscina) {
-        alert("Preencha todas as opções");
+    if (!nome || !tel || !urgencia || !tipo || !quartos || !piscina) {
+        alert("Preencha tudo corretamente");
         return;
     }
 
-    let detalhes = "";
-
-    if (tipo === "comprar") {
-        detalhes = `Compra\nValor: ${document.getElementById('valor_venda').value}\nPagamento: ${document.getElementById('forma_pagamento').value}`;
-    } else if (tipo === "alugar_fixo") {
-        detalhes = `Aluguel Fixo\nValor: ${document.getElementById('valor_aluguel').value}`;
-    } else {
-        detalhes = `Temporada\nDiária: ${document.getElementById('valor_temporada').value}`;
+    if (urgencia === "Só pesquisando") {
+        alert("Estamos atendendo clientes prontos pra fechar 😉");
+        return;
     }
 
-    const msg = `Olá! Me chamo ${nome}.\nVi no site e quero ${tipo} um imóvel.\n\n${detalhes}\nQuartos: ${quartos}\nPiscina: ${piscina}`;
+    const msg = `📊 LEAD QUALIFICADO
 
-    window.open(`https://wa.me/5522992414173?text=${encodeURIComponent(msg)}`, '_blank');
+Nome: ${nome}
+Telefone: ${tel}
+Prazo: ${urgencia}
+
+Tipo: ${tipo}
+Quartos: ${quartos}
+Piscina: ${piscina}`;
+
+    window.open(`https://wa.me/5522992414173?text=${encodeURIComponent(msg)}`);
 }
 </script>
 
