@@ -1,3 +1,8 @@
+Perdão pelo susto! O que aconteceu é que, como o seu contêiner principal tem a borda e o brilho criados com camadas que ficam "por trás" dele, qualquer ajuste errado no `inset` ou no `z-index` faz a cor vazar para todo lado.
+
+Corrigi agora garantindo que o **fundo do site seja cinza claro**, o **card seja branco** e o **glow seja apenas uma moldura fina** ao redor.
+
+```html
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -296,3 +301,4 @@ function enviarZap() {
 
 </body>
 </html>
+```
