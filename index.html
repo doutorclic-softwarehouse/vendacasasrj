@@ -1,379 +1,290 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Venda Casas RJ | Encontre seu Lar</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Venda Casas RJ</title>
 
-    <style>
-        :root {
-            --bg-body: #f4f7f6;
-            --primaria: #ff6a00; /* Laranja */
-            --secundaria: #6a2cff; /* Roxo */
-            --texto: #333;
-        }
+<style>
+:root {
+    --bg-body: #f4f7f6;
+    --primaria: #ff6a00;
+    --secundaria: #6a2cff;
+}
 
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--bg-body);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
+body {
+    margin:0;
+    font-family: sans-serif;
+    background: var(--bg-body);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
 
-        .container {
-            position: relative;
-            background: #fff;
-            padding: 35px 25px;
-            border-radius: 20px;
-            width: 100%;
-            max-width: 380px;
-            text-align: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-        }
+.container {
+    position:relative;
+    background:#fff;
+    padding:30px;
+    border-radius:20px;
+    width:100%;
+    max-width:380px;
+    text-align:center;
+}
 
-        /* Borda Neon e Glow Otimizados */
-        .container::before {
-            content: "";
-            position: absolute;
-            inset: -2px;
-            border-radius: 22px;
-            background: linear-gradient(45deg, var(--primaria), var(--secundaria));
-            z-index: -1;
-        }
+.container::before {
+    content:"";
+    position:absolute;
+    inset:-2px;
+    border-radius:22px;
+    background:linear-gradient(45deg,var(--primaria),var(--secundaria));
+    z-index:-1;
+}
 
-        .logo {
-            max-width: 150px;
-            margin: 0 auto 20px;
-            display: block;
-        }
+.field-group {
+    display:none;
+    margin-bottom:15px;
+    text-align:left;
+}
 
-        .title {
-            font-size: 22px;
-            font-weight: 800;
-            color: var(--secundaria);
-            line-height: 1.2;
-        }
+.field-group.show {
+    display:block;
+}
 
-        .sub {
-            font-size: 14px;
-            color: #666;
-            margin: 8px 0 15px;
-        }
+label {
+    font-size:12px;
+    font-weight:bold;
+}
 
-        .urgencia-tag {
-            display: inline-block;
-            font-size: 11px;
-            background: #fff0e6;
-            color: var(--primaria);
-            font-weight: bold;
-            padding: 5px 12px;
-            border-radius: 50px;
-            margin-bottom: 25px;
-            border: 1px solid var(--primaria);
-        }
+input, select {
+    width:100%;
+    padding:12px;
+    border-radius:10px;
+    border:1px solid #eee;
+    margin-top:5px;
+}
 
-        .field-group {
-            text-align: left;
-            margin-bottom: 15px;
-            display: none; /* Escondido por padrão */
-        }
+button {
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:50px;
+    background:linear-gradient(45deg,var(--primaria),var(--secundaria));
+    color:#fff;
+    font-weight:bold;
+    margin-top:15px;
+}
 
-        .field-group.show {
-            display: block;
-            animation: slideUp 0.4s ease forwards;
-        }
+.btn-whats-inline {
+    display:block;
+    margin-top:10px;
+    padding:14px;
+    border-radius:50px;
+    background:#25d366;
+    color:#fff;
+    text-decoration:none;
+    font-weight:bold;
+}
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        label {
-            font-size: 12px;
-            font-weight: 700;
-            color: #444;
-            margin-left: 5px;
-        }
-
-        select, input {
-            width: 100%;
-            padding: 12px;
-            margin-top: 5px;
-            border-radius: 10px;
-            border: 1.5px solid #eee;
-            box-sizing: border-box;
-            font-size: 14px;
-            transition: border-color 0.3s;
-        }
-
-        select:focus, input:focus {
-            outline: none;
-            border-color: var(--secundaria);
-        }
-
-        /* Botão com Gradiente Real */
-        button {
-            width: 100%;
-            padding: 16px;
-            border: none;
-            border-radius: 50px;
-            background: linear-gradient(45deg, var(--primaria), var(--secundaria));
-            color: white;
-            font-weight: 800;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: transform 0.2s;
-            box-shadow: 0 4px 15px rgba(106, 44, 255, 0.3);
-        }
-
-        button:active { transform: scale(0.98); }
-
-        button:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            box-shadow: none;
-        }
-
-        .whatsapp-float {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: #25d366;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px;
-            text-decoration: none;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            z-index: 100;
-        }
-
-        .footer-text {
-            font-size: 11px;
-            color: #aaa;
-            margin-top: 20px;
-        }
-    </style>
+.whatsapp-float {
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    width:60px;
+    height:60px;
+    background:#25d366;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-size:28px;
+    text-decoration:none;
+}
+</style>
 </head>
+
 <body>
 
 <div class="container">
-    <img src="https://i.ibb.co/HDWMYfkJ/venda-logo.jpg" alt="Logo" class="logo">
 
-    <div class="title">Encontre seu imóvel ideal</div>
-    <div class="sub">Filtramos as melhores opções para você</div>
-    <div class="urgencia-tag">🔥 IMÓVEIS COM DESCONTO HOJE</div>
+<form id="formLead">
 
-   <form id="formLead">
+<div class="field-group show">
+<label>Nome</label>
+<input id="nome" oninput="validarForm()">
+</div>
 
-    <div class="field-group show">
-        <label>Seu nome</label>
-        <input type="text" id="nome" placeholder="Ex: João Silva" oninput="validarForm()">
-    </div>
+<div class="field-group show">
+<label>WhatsApp</label>
+<input id="telefone" oninput="mascaraTel(this); validarForm()">
+</div>
 
-    <div class="field-group show">
-        <label>Seu telefone (WhatsApp)</label>
-        <input type="tel" id="telefone" placeholder="(22) 99999-9999" maxlength="15" oninput="mascaraTel(this); validarForm()">
-    </div>
+<div class="field-group show">
+<label>O que você busca?</label>
+<select id="tipo_servico" onchange="atualizarFunil()">
+<option value="">Selecione</option>
+<option value="Comprar">Comprar</option>
+<option value="Alugar Fixo">Alugar Fixo</option>
+<option value="Temporada">Temporada</option>
+</select>
+</div>
 
-    <div class="field-group show">
-        <label>O que você busca?</label>
-        <select id="tipo_servico" onchange="atualizarFunil()">
-            <option value="">Escolha...</option>
-            <option value="Comprar">Comprar</option>
-            <option value="Alugar Fixo">Alugar Fixo</option>
-            <option value="Temporada">Temporada</option>
-        </select>
-    </div>
+<div id="f_tipo_imovel" class="field-group">
+<label>Tipo de imóvel</label>
+<select id="tipo_imovel" onchange="handleImovel(); validarForm()">
+<option value="">Selecione</option>
+<option value="Casa">Casa</option>
+<option value="Loja">Loja</option>
+<option value="Terreno">Terreno</option>
+</select>
+</div>
 
-    <div id="f_tipo_imovel" class="field-group">
-        <label>Tipo de imóvel</label>
-        <select id="tipo_imovel" onchange="handleImovel(); validarForm()">
-            <option value="">Selecione</option>
-            <option value="Casa">Casa</option>
-            <option value="Loja">Loja</option>
-            <option value="Terreno">Terreno</option>
-        </select>
-    </div>
+<div id="f_quartos" class="field-group">
+<label>Quartos</label>
+<select id="quartos" onchange="validarForm()">
+<option value="">Selecione</option>
+<option>1</option>
+<option>2</option>
+<option>3+</option>
+</select>
+</div>
 
-    <div id="f_piscina" class="field-group">
-        <label>Piscina</label>
-        <select id="piscina" onchange="validarForm()">
-            <option value="">Selecione</option>
-            <option value="Com piscina">Com piscina</option>
-            <option value="Sem piscina">Sem piscina</option>
-        </select>
-    </div>
+<div id="f_piscina" class="field-group">
+<label>Piscina</label>
+<select id="piscina" onchange="validarForm()">
+<option value="">Selecione</option>
+<option>Com piscina</option>
+<option>Sem piscina</option>
+</select>
+</div>
 
-    <div id="f_valor_compra" class="field-group">
-        <label>Faixa de valor</label>
-        <select id="valor_compra" onchange="validarForm()">
-            <option value="">Selecione</option>
-            <option value="50k-180k">50 mil até 180 mil</option>
-            <option value="180k-300k">180 mil até 300 mil</option>
-            <option value="300k+">Acima de 300 mil</option>
-        </select>
-    </div>
+<div id="f_valor_compra" class="field-group">
+<label>Valor</label>
+<select id="valor_compra" onchange="validarForm()">
+<option value="">Selecione</option>
+<option>50-180 mil</option>
+<option>180-300 mil</option>
+<option>300 mil+</option>
+</select>
+</div>
 
-    <div id="f_valor_aluguel" class="field-group">
-        <label>Faixa de aluguel</label>
-        <select id="valor_aluguel" onchange="validarForm()">
-            <option value="">Selecione</option>
-            <option value="600-1000">600 até 1000</option>
-            <option value="1000-2000">1000 até 2000</option>
-            <option value="2000+">2000+</option>
-        </select>
-    </div>
+<div id="f_valor_aluguel" class="field-group">
+<label>Aluguel</label>
+<select id="valor_aluguel" onchange="validarForm()">
+<option value="">Selecione</option>
+<option>600-1000</option>
+<option>1000-2000</option>
+<option>2000+</option>
+</select>
+</div>
 
-    <div id="f_pagamento" class="field-group">
-        <label>Pagamento</label>
-        <select id="pagamento" onchange="handlePagamento(); validarForm()">
-            <option value="">Selecione</option>
-            <option value="À vista">À vista</option>
-            <option value="Financiado">Financiado</option>
-        </select>
-    </div>
+<div id="f_pagamento" class="field-group">
+<label>Pagamento</label>
+<select id="pagamento" onchange="handlePagamento(); validarForm()">
+<option value="">Selecione</option>
+<option>À vista</option>
+<option>Financiado</option>
+</select>
+</div>
 
-    <div id="f_entrada" class="field-group">
-        <label>Entrada estimada</label>
-        <input type="number" id="entrada" placeholder="Ex: 20000" oninput="validarForm()">
-    </div>
+<div id="f_entrada" class="field-group">
+<label>Entrada</label>
+<input id="entrada" type="number" oninput="validarForm()">
+</div>
 
-    <button id="btnEnviar" type="button" onclick="enviarZap()" disabled>
-        Ver imóveis disponíveis
-    </button>
+<button id="btnEnviar" type="button" onclick="enviarZap()" disabled>
+Ver imóveis
+</button>
+
+<a href="https://wa.me/5522992414173" target="_blank" class="btn-whats-inline">
+💬 Falar direto no WhatsApp
+</a>
 
 </form>
+</div>
+
+<a href="https://wa.me/5522992414173" class="whatsapp-float">💬</a>
 
 <script>
-function mascaraTel(i) {
-    let v = i.value.replace(/\D/g, "");
-    v = v.replace(/^(\d{2})(\d)/g, "($1) $2");
-    v = v.replace(/(\d)(\d{4})$/, "$1-$2");
-    i.value = v;
+function mascaraTel(i){
+let v=i.value.replace(/\D/g,"");
+v=v.replace(/^(\d{2})(\d)/g,"($1) $2");
+v=v.replace(/(\d)(\d{4})$/,"$1-$2");
+i.value=v;
 }
 
-function atualizarFunil() {
-    const tipo = document.getElementById('tipo_servico').value;
+function atualizarFunil(){
+let tipo=tipo_servico.value;
 
-    document.getElementById('f_tipo_imovel').classList.add('show');
+f_tipo_imovel.classList.add('show');
 
-    // Reset geral
-    hideAll();
+f_valor_compra.classList.remove('show');
+f_valor_aluguel.classList.remove('show');
+f_pagamento.classList.remove('show');
+f_entrada.classList.remove('show');
 
-    if (tipo === "Comprar") {
-        document.getElementById('f_valor_compra').classList.add('show');
-        document.getElementById('f_pagamento').classList.add('show');
-    } 
-
-    if (tipo === "Alugar Fixo") {
-        document.getElementById('f_valor_aluguel').classList.add('show');
-    }
-
-    // Temporada NÃO mostra valores
-
-    validarForm();
+if(tipo==="Comprar"){
+f_valor_compra.classList.add('show');
+f_pagamento.classList.add('show');
 }
 
-function handleImovel() {
-    const tipoImovel = document.getElementById('tipo_imovel').value;
-
-    // Reset total
-    document.getElementById('f_piscina').style.display = "none";
-    document.getElementById('f_quartos').style.display = "none";
-
-    if (tipoImovel === "Casa") {
-        document.getElementById('f_piscina').style.display = "block";
-        document.getElementById('f_quartos').style.display = "block";
-    }
-
-    // Loja e Terreno não exibem nada extra (correto agora)
-
-    validarForm();
+if(tipo==="Alugar Fixo"){
+f_valor_aluguel.classList.add('show');
 }
-    // Loja e Terreno não mostram nada extra
-
-    validarForm();
 }
 
-function handlePagamento() {
-    const pagamento = document.getElementById('pagamento').value;
+function handleImovel(){
+let t=tipo_imovel.value;
 
-    if (pagamento === "Financiado") {
-        document.getElementById('f_entrada').classList.add('show');
-    } else {
-        document.getElementById('f_entrada').classList.remove('show');
-    }
+f_quartos.classList.remove('show');
+f_piscina.classList.remove('show');
+
+if(t==="Casa"){
+f_quartos.classList.add('show');
+f_piscina.classList.add('show');
+}
 }
 
-function hideAll() {
-    document.getElementById('f_valor_compra').classList.remove('show');
-    document.getElementById('f_valor_aluguel').classList.remove('show');
-    document.getElementById('f_pagamento').classList.remove('show');
-    document.getElementById('f_entrada').classList.remove('show');
+function handlePagamento(){
+if(pagamento.value==="Financiado"){
+f_entrada.classList.add('show');
+}else{
+f_entrada.classList.remove('show');
+}
 }
 
-function validarForm() {
-    const nome = document.getElementById('nome').value;
-    const tel = document.getElementById('telefone').value.length >= 14;
-    const tipo = document.getElementById('tipo_servico').value;
-    const imovel = document.getElementById('tipo_imovel').value;
+function validarForm(){
+let ok=nome.value && telefone.value.length>=14 && tipo_servico.value && tipo_imovel.value;
 
-    let valido = nome && tel && tipo && imovel;
+if(tipo_imovel.value==="Casa" && !quartos.value) ok=false;
 
-    // Se for CASA precisa de quartos
-    if (imovel === "Casa") {
-        const quartos = document.getElementById('quartos').value;
-        if (!quartos) valido = false;
-    }
-
-    if (tipo === "Comprar") {
-        const valor = document.getElementById('valor_compra').value;
-        const pagamento = document.getElementById('pagamento').value;
-
-        if (!valor || !pagamento) valido = false;
-
-        if (pagamento === "Financiado") {
-            const entrada = document.getElementById('entrada').value;
-            if (!entrada) valido = false;
-        }
-    }
-
-    if (tipo === "Alugar Fixo") {
-        const valorAluguel = document.getElementById('valor_aluguel').value;
-        if (!valorAluguel) valido = false;
-    }
-
-    // Temporada não valida valor
-
-    document.getElementById('btnEnviar').disabled = !valido;
+if(tipo_servico.value==="Comprar"){
+if(!valor_compra.value || !pagamento.value) ok=false;
+if(pagamento.value==="Financiado" && !entrada.value) ok=false;
 }
 
-function enviarZap() {
-    const msg =
-`*NOVO LEAD QUALIFICADO* 🏠%0A%0A
-*Nome:* ${nome.value}%0A
-*Telefone:* ${telefone.value}%0A
-*Tipo:* ${tipo_servico.value}%0A
-*Imóvel:* ${tipo_imovel.value}%0A
-*Quartos:* ${quartos?.value || "N/A"}%0A
-*Piscina:* ${piscina?.value || "N/A"}%0A
-*Valor:* ${valor_compra?.value || valor_aluguel?.value || "N/A"}%0A
-*Pagamento:* ${pagamento?.value || "N/A"}%0A
-*Entrada:* ${entrada?.value || "N/A"}`;
-
-    window.open(`https://wa.me/5522992414173?text=${msg}`);
+if(tipo_servico.value==="Alugar Fixo"){
+if(!valor_aluguel.value) ok=false;
 }
 
+btnEnviar.disabled=!ok;
+}
+
+function enviarZap(){
+let msg=`NOVO LEAD%0A
+Nome:${nome.value}%0A
+Tel:${telefone.value}%0A
+Tipo:${tipo_servico.value}%0A
+Imóvel:${tipo_imovel.value}%0A
+Quartos:${quartos.value||"N/A"}%0A
+Piscina:${piscina.value||"N/A"}%0A
+Valor:${valor_compra.value||valor_aluguel.value||"N/A"}%0A
+Pagamento:${pagamento.value||"N/A"}%0A
+Entrada:${entrada.value||"N/A"}`;
+
+window.open(`https://wa.me/5522992414173?text=${msg}`);
+}
 </script>
 
 </body>
