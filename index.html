@@ -31,18 +31,37 @@ body{
 .container{
     position:relative;
     background:#fff;
-    padding:30px;
     border-radius:20px;
     width:100%;
-    max-width:380px;
+    max-width:420px;
+    padding:25px;
     text-align:center;
+}
+
+/* MOBILE FULL SCREEN (9:16) */
+@media (max-width: 768px){
+    body{
+        padding:0;
+        align-items:stretch;
+    }
+
+    .container{
+        max-width:100%;
+        width:100%;
+        height:100vh;
+        border-radius:0;
+        padding:20px;
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+    }
 }
 
 .container::before{
     content:"";
     position:absolute;
-    inset:-2px;
-    border-radius:22px;
+    inset:0;
+    border-radius:inherit;
     background:linear-gradient(45deg,var(--primaria),var(--secundaria));
     z-index:-1;
 }
@@ -115,7 +134,7 @@ button{
 </head>
 
 <body>
-
+  background:#000;
 <div class="container">
 
 <img src="https://i.ibb.co/HDWMYfkJ/venda-logo.jpg" class="logo">
