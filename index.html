@@ -173,70 +173,88 @@
     <div class="sub">Filtramos as melhores opções para você</div>
     <div class="urgencia-tag">🔥 IMÓVEIS COM DESCONTO HOJE</div>
 
-    <form id="formLead">
-        <div class="field-group show">
-            <label>Seu nome</label>
-            <input type="text" id="nome" placeholder="Ex: João Silva" oninput="validarForm()">
-        </div>
+   <form id="formLead">
 
-        <div class="field-group show">
-            <label>Seu telefone (WhatsApp)</label>
-            <input type="tel" id="telefone" placeholder="(22) 99999-9999" maxlength="15" oninput="mascaraTel(this); validarForm()">
-        </div>
+    <div class="field-group show">
+        <label>Seu nome</label>
+        <input type="text" id="nome" placeholder="Ex: João Silva" oninput="validarForm()">
+    </div>
 
-        <div class="field-group show">
-            <label>O que você busca?</label>
-            <select id="tipo_servico" onchange="atualizarFunil()">
-                <option value="">Escolha...</option>
-                <option value="Comprar">Comprar</option>
-                <option value="Alugar">Alugar</option>
-                <option value="Temporada">Temporada</option>
-            </select>
-        </div>
+    <div class="field-group show">
+        <label>Seu telefone (WhatsApp)</label>
+        <input type="tel" id="telefone" placeholder="(22) 99999-9999" maxlength="15" oninput="mascaraTel(this); validarForm()">
+    </div>
 
-        <div id="f_urgencia" class="field-group">
-            <label>Pretende fechar quando?</label>
-            <select id="urgencia" onchange="validarForm()">
-                <option value="">Selecione</option>
-                <option value="Imediato">Imediato</option>
-                <option value="Até 30 dias">Até 30 dias</option>
-                <option value="Só pesquisando">Apenas pesquisando</option>
-            </select>
-        </div>
+    <div class="field-group show">
+        <label>O que você busca?</label>
+        <select id="tipo_servico" onchange="atualizarFunil()">
+            <option value="">Escolha...</option>
+            <option value="Comprar">Comprar</option>
+            <option value="Alugar Fixo">Alugar Fixo</option>
+            <option value="Temporada">Temporada</option>
+        </select>
+    </div>
 
-        <div id="f_quartos" class="field-group">
-            <label>Mínimo de quartos</label>
-            <select id="quartos" onchange="validarForm()">
-                <option value="">Selecione</option>
-                <option value="1">1 quarto</option>
-                <option value="2">2 quartos</option>
-                <option value="3+">3 ou mais</option>
-            </select>
-        </div>
+    <div id="f_tipo_imovel" class="field-group">
+        <label>Tipo de imóvel</label>
+        <select id="tipo_imovel" onchange="handleImovel(); validarForm()">
+            <option value="">Selecione</option>
+            <option value="Casa">Casa</option>
+            <option value="Loja">Loja</option>
+            <option value="Terreno">Terreno</option>
+        </select>
+    </div>
 
-        <div id="f_credito" class="field-group">
-            <label>Possui crédito aprovado?</label>
-            <select id="credito" onchange="validarForm()">
-                <option value="">Selecione</option>
-                <option value="Sim">Sim</option>
-                <option value="Não">Não / Preciso de ajuda</option>
-            </select>
-        </div>
+    <div id="f_piscina" class="field-group">
+        <label>Piscina</label>
+        <select id="piscina" onchange="validarForm()">
+            <option value="">Selecione</option>
+            <option value="Com piscina">Com piscina</option>
+            <option value="Sem piscina">Sem piscina</option>
+        </select>
+    </div>
 
-        <button id="btnEnviar" type="button" onclick="enviarZap()" disabled>
-            Ver imóveis disponíveis
-        </button>
-    </form>
+    <div id="f_valor_compra" class="field-group">
+        <label>Faixa de valor</label>
+        <select id="valor_compra" onchange="validarForm()">
+            <option value="">Selecione</option>
+            <option value="50k-180k">50 mil até 180 mil</option>
+            <option value="180k-300k">180 mil até 300 mil</option>
+            <option value="300k+">Acima de 300 mil</option>
+        </select>
+    </div>
 
-    <div class="footer-text">© 2024 Venda Casas RJ - Creci J-8888</div>
-</div>
+    <div id="f_valor_aluguel" class="field-group">
+        <label>Faixa de aluguel</label>
+        <select id="valor_aluguel" onchange="validarForm()">
+            <option value="">Selecione</option>
+            <option value="600-1000">600 até 1000</option>
+            <option value="1000-2000">1000 até 2000</option>
+            <option value="2000+">2000+</option>
+        </select>
+    </div>
 
-<a href="https://wa.me/5522992414173" class="whatsapp-float" target="_blank">
-    <span>➔</span>
-</a>
+    <div id="f_pagamento" class="field-group">
+        <label>Pagamento</label>
+        <select id="pagamento" onchange="handlePagamento(); validarForm()">
+            <option value="">Selecione</option>
+            <option value="À vista">À vista</option>
+            <option value="Financiado">Financiado</option>
+        </select>
+    </div>
+
+    <div id="f_entrada" class="field-group">
+        <label>Entrada estimada</label>
+        <input type="number" id="entrada" placeholder="Ex: 20000" oninput="validarForm()">
+    </div>
+
+    <button id="btnEnviar" type="button" onclick="enviarZap()" disabled>
+        Ver imóveis disponíveis
+    </button>
+
+</form>
 
 <script>
-// Máscara de Telefone
 function mascaraTel(i) {
     let v = i.value.replace(/\D/g, "");
     v = v.replace(/^(\d{2})(\d)/g, "($1) $2");
@@ -246,62 +264,82 @@ function mascaraTel(i) {
 
 function atualizarFunil() {
     const tipo = document.getElementById('tipo_servico').value;
-    
-    // Reseta visual dos campos
-    document.getElementById('f_urgencia').classList.remove('show');
-    document.getElementById('f_quartos').classList.remove('show');
-    document.getElementById('f_credito').classList.remove('show');
 
-    if (tipo !== "") {
-        document.getElementById('f_urgencia').classList.add('show');
-        document.getElementById('f_quartos').classList.add('show');
-        
-        if (tipo === "Comprar") {
-            document.getElementById('f_credito').classList.add('show');
-        }
+    document.getElementById('f_tipo_imovel').classList.add('show');
+    document.getElementById('f_piscina').classList.add('show');
+
+    document.getElementById('f_valor_compra').classList.remove('show');
+    document.getElementById('f_valor_aluguel').classList.remove('show');
+    document.getElementById('f_pagamento').classList.remove('show');
+    document.getElementById('f_entrada').classList.remove('show');
+
+    if (tipo === "Comprar") {
+        document.getElementById('f_valor_compra').classList.add('show');
+        document.getElementById('f_pagamento').classList.add('show');
+    } else {
+        document.getElementById('f_valor_aluguel').classList.add('show');
     }
+
     validarForm();
+}
+
+function handleImovel() {
+    const tipo = document.getElementById('tipo_imovel').value;
+
+    if (tipo === "Terreno") {
+        document.getElementById('f_piscina').style.display = "none";
+    } else {
+        document.getElementById('f_piscina').style.display = "block";
+    }
+}
+
+function handlePagamento() {
+    const pagamento = document.getElementById('pagamento').value;
+
+    if (pagamento === "Financiado") {
+        document.getElementById('f_entrada').classList.add('show');
+    } else {
+        document.getElementById('f_entrada').classList.remove('show');
+    }
 }
 
 function validarForm() {
     const nome = document.getElementById('nome').value;
     const tel = document.getElementById('telefone').value.length >= 14;
     const tipo = document.getElementById('tipo_servico').value;
-    const urgencia = document.getElementById('urgencia').value;
-    const quartos = document.getElementById('quartos').value;
-    
-    let obrigatorios = nome && tel && tipo && urgencia && quartos;
-    
-    // Se for comprar, crédito vira obrigatório
+    const imovel = document.getElementById('tipo_imovel').value;
+
+    let valido = nome && tel && tipo && imovel;
+
     if (tipo === "Comprar") {
-        const credito = document.getElementById('credito').value;
-        if (!credito) obrigatorios = false;
+        const valor = document.getElementById('valor_compra').value;
+        const pagamento = document.getElementById('pagamento').value;
+
+        if (!valor || !pagamento) valido = false;
+
+        if (pagamento === "Financiado") {
+            const entrada = document.getElementById('entrada').value;
+            if (!entrada) valido = false;
+        }
+    } else {
+        const valorAluguel = document.getElementById('valor_aluguel').value;
+        if (!valorAluguel) valido = false;
     }
 
-    document.getElementById('btnEnviar').disabled = !obrigatorios;
+    document.getElementById('btnEnviar').disabled = !valido;
 }
 
 function enviarZap() {
-    const dados = {
-        nome: document.getElementById('nome').value,
-        tel: document.getElementById('telefone').value,
-        tipo: document.getElementById('tipo_servico').value,
-        urgencia: document.getElementById('urgencia').value,
-        quartos: document.getElementById('quartos').value,
-        credito: document.getElementById('credito').value || "N/A"
-    };
-
-    if (dados.urgencia === "Só pesquisando") {
-        alert("Entendido! Enviaremos nosso catálogo geral, mas priorizamos o atendimento de quem tem urgência.");
-    }
-
-    const msg = `*NOVO LEAD QUALIFICADO* 🏠%0A%0A` +
-                `*Nome:* ${dados.nome}%0A` +
-                `*WhatsApp:* ${dados.tel}%0A` +
-                `*Interesse:* ${dados.tipo}%0A` +
-                `*Prazo:* ${dados.urgencia}%0A` +
-                `*Quartos:* ${dados.quartos}%0A` +
-                `*Crédito:* ${dados.credito}`;
+    const msg =
+`*NOVO LEAD QUALIFICADO* 🏠%0A%0A
+*Nome:* ${nome.value}%0A
+*Telefone:* ${telefone.value}%0A
+*Tipo:* ${tipo_servico.value}%0A
+*Imóvel:* ${tipo_imovel.value}%0A
+*Piscina:* ${piscina.value || "N/A"}%0A
+*Valor:* ${valor_compra.value || valor_aluguel.value}%0A
+*Pagamento:* ${pagamento.value || "N/A"}%0A
+*Entrada:* ${entrada.value || "N/A"}`;
 
     window.open(`https://wa.me/5522992414173?text=${msg}`);
 }
