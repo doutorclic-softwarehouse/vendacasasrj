@@ -14,7 +14,7 @@
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
-    background: #f0f2f5; /* Fundo cinza claro para destacar o card */
+    background: #f0f2f5; /* Fundo do site */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -24,37 +24,17 @@ body {
 
 /* CONTAINER PRINCIPAL */
 .container {
-    position: relative;
-    background-color: #ffffff !important; /* FORÇA O FUNDO BRANCO */
+    background-color: #ffffff; 
     padding: 30px 25px;
     border-radius: 20px;
     width: 100%;
     max-width: 400px;
     text-align: center;
-    z-index: 1; /* Garante que o card fique na frente */
     box-sizing: border-box;
-}
-
-/* A BORDA NEON (LINHA FINA) */
-.container::before {
-    content: "";
-    position: absolute;
-    inset: -2px; /* Espessura da borda */
-    border-radius: 22px;
-    background: linear-gradient(45deg, var(--laranja), #ffae00, var(--laranja));
-    z-index: -1; /* Fica logo atrás do branco */
-}
-
-/* O GLOW (O BRILHO AO REDOR) */
-.container::after {
-    content: "";
-    position: absolute;
-    inset: -6px; /* O quanto o brilho se expande */
-    border-radius: 25px;
-    background: var(--laranja);
-    filter: blur(15px); /* Efeito de desfoque para parecer neon */
-    z-index: -2; /* Fica atrás da borda */
-    opacity: 0.6;
+    
+    /* AQUI ESTÁ O EFEITO NEON REAL (Borda sólida + Brilho externo) */
+    border: 2px solid var(--laranja);
+    box-shadow: 0 0 15px rgba(255, 106, 0, 0.4), 0 0 5px rgba(255, 106, 0, 0.2);
 }
 
 /* LOGO */
@@ -110,17 +90,18 @@ label {
     margin-bottom: 5px;
 }
 
+/* BOX-SIZING GARANTE QUE O CAMPO NÃO ULTRAPASSE A BORDA */
 select, input {
     width: 100%;
     padding: 14px;
     border-radius: 10px;
     border: 1px solid #ddd;
-    box-sizing: border-box; /* Isso impede que o campo saia do frame */
+    box-sizing: border-box; 
     background: #fff;
     font-size: 14px;
 }
 
-/* BOTÃO CTA */
+/* BOTÃO CTA ORIGINAL */
 button {
     width: 100%;
     padding: 16px;
