@@ -266,31 +266,40 @@ function atualizarFunil() {
     const tipo = document.getElementById('tipo_servico').value;
 
     document.getElementById('f_tipo_imovel').classList.add('show');
-    document.getElementById('f_piscina').classList.add('show');
 
-    document.getElementById('f_valor_compra').classList.remove('show');
-    document.getElementById('f_valor_aluguel').classList.remove('show');
-    document.getElementById('f_pagamento').classList.remove('show');
-    document.getElementById('f_entrada').classList.remove('show');
+    // Reset geral
+    hideAll();
 
     if (tipo === "Comprar") {
         document.getElementById('f_valor_compra').classList.add('show');
         document.getElementById('f_pagamento').classList.add('show');
-    } else {
+    } 
+
+    if (tipo === "Alugar Fixo") {
         document.getElementById('f_valor_aluguel').classList.add('show');
     }
+
+    // Temporada NÃO mostra valores
 
     validarForm();
 }
 
 function handleImovel() {
-    const tipo = document.getElementById('tipo_imovel').value;
+    const tipoImovel = document.getElementById('tipo_imovel').value;
+    const tipoServico = document.getElementById('tipo_servico').value;
 
-    if (tipo === "Terreno") {
-        document.getElementById('f_piscina').style.display = "none";
-    } else {
+    // Reset visual
+    document.getElementById('f_piscina').style.display = "none";
+    document.getElementById('f_quartos').style.display = "none";
+
+    if (tipoImovel === "Casa") {
         document.getElementById('f_piscina').style.display = "block";
+        document.getElementById('f_quartos').style.display = "block";
     }
+
+    // Loja e Terreno não mostram nada extra
+
+    validarForm();
 }
 
 function handlePagamento() {
@@ -303,6 +312,13 @@ function handlePagamento() {
     }
 }
 
+function hideAll() {
+    document.getElementById('f_valor_compra').classList.remove('show');
+    document.getElementById('f_valor_aluguel').classList.remove('show');
+    document.getElementById('f_pagamento').classList.remove('show');
+    document.getElementById('f_entrada').classList.remove('show');
+}
+
 function validarForm() {
     const nome = document.getElementById('nome').value;
     const tel = document.getElementById('telefone').value.length >= 14;
@@ -310,6 +326,12 @@ function validarForm() {
     const imovel = document.getElementById('tipo_imovel').value;
 
     let valido = nome && tel && tipo && imovel;
+
+    // Se for CASA precisa de quartos
+    if (imovel === "Casa") {
+        const quartos = document.getElementById('quartos').value;
+        if (!quartos) valido = false;
+    }
 
     if (tipo === "Comprar") {
         const valor = document.getElementById('valor_compra').value;
@@ -321,10 +343,14 @@ function validarForm() {
             const entrada = document.getElementById('entrada').value;
             if (!entrada) valido = false;
         }
-    } else {
+    }
+
+    if (tipo === "Alugar Fixo") {
         const valorAluguel = document.getElementById('valor_aluguel').value;
         if (!valorAluguel) valido = false;
     }
+
+    // Temporada não valida valor
 
     document.getElementById('btnEnviar').disabled = !valido;
 }
@@ -336,13 +362,15 @@ function enviarZap() {
 *Telefone:* ${telefone.value}%0A
 *Tipo:* ${tipo_servico.value}%0A
 *Imóvel:* ${tipo_imovel.value}%0A
-*Piscina:* ${piscina.value || "N/A"}%0A
-*Valor:* ${valor_compra.value || valor_aluguel.value}%0A
-*Pagamento:* ${pagamento.value || "N/A"}%0A
-*Entrada:* ${entrada.value || "N/A"}`;
+*Quartos:* ${quartos?.value || "N/A"}%0A
+*Piscina:* ${piscina?.value || "N/A"}%0A
+*Valor:* ${valor_compra?.value || valor_aluguel?.value || "N/A"}%0A
+*Pagamento:* ${pagamento?.value || "N/A"}%0A
+*Entrada:* ${entrada?.value || "N/A"}`;
 
     window.open(`https://wa.me/5522992414173?text=${msg}`);
 }
+
 </script>
 
 </body>
