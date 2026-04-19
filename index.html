@@ -1,219 +1,225 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Venda Casas RJ</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venda Casas RJ | Encontre seu Lar</title>
 
-<style>
-:root {
-    --laranja: #ff6a00;
-    --roxo: #6a2cff;
-}
+    <style>
+        :root {
+            --bg-body: #f4f7f6;
+            --primaria: #ff6a00; /* Laranja */
+            --secundaria: #6a2cff; /* Roxo */
+            --texto: #333;
+        }
 
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: #f0f2f5; /* Fundo do site */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
-}
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-body);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
 
-/* CONTAINER PRINCIPAL */
-.container {
-    background-color: #ffffff; 
-    padding: 30px 25px;
-    border-radius: 20px;
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-    box-sizing: border-box;
-    
-    /* AQUI ESTÁ O EFEITO NEON REAL (Borda sólida + Brilho externo) */
-    border: 2px solid var(--laranja);
-    box-shadow: 0 0 15px rgba(255, 106, 0, 0.4), 0 0 5px rgba(255, 106, 0, 0.2);
-}
+        .container {
+            position: relative;
+            background: #fff;
+            padding: 35px 25px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 380px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
 
-/* LOGO */
-.logo {
-    max-width: 160px;
-    margin: 0 auto 15px;
-    display: block;
-}
+        /* Borda Neon e Glow Otimizados */
+        .container::before {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            border-radius: 22px;
+            background: linear-gradient(45deg, var(--primaria), var(--secundaria));
+            z-index: -1;
+        }
 
-/* TEXTOS */
-.title {
-    font-size: 22px;
-    font-weight: 800;
-    color: var(--roxo);
-    margin: 0;
-}
+        .logo {
+            max-width: 150px;
+            margin: 0 auto 20px;
+            display: block;
+        }
 
-.sub {
-    font-size: 13px;
-    color: #666;
-    margin-bottom: 10px;
-}
+        .title {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--secundaria);
+            line-height: 1.2;
+        }
 
-.urgencia {
-    font-size: 12px;
-    color: var(--laranja);
-    font-weight: bold;
-    margin-bottom: 20px;
-}
+        .sub {
+            font-size: 14px;
+            color: #666;
+            margin: 8px 0 15px;
+        }
 
-/* CAMPOS DO FORMULÁRIO */
-.field-group {
-    text-align: left;
-    margin-bottom: 15px;
-    display: none;
-    opacity: 0;
-}
+        .urgencia-tag {
+            display: inline-block;
+            font-size: 11px;
+            background: #fff0e6;
+            color: var(--primaria);
+            font-weight: bold;
+            padding: 5px 12px;
+            border-radius: 50px;
+            margin-bottom: 25px;
+            border: 1px solid var(--primaria);
+        }
 
-.field-group.show {
-    display: block;
-    animation: fadeIn 0.4s forwards;
-}
+        .field-group {
+            text-align: left;
+            margin-bottom: 15px;
+            display: none; /* Escondido por padrão */
+        }
 
-@keyframes fadeIn {
-    to { opacity: 1; }
-}
+        .field-group.show {
+            display: block;
+            animation: slideUp 0.4s ease forwards;
+        }
 
-label {
-    font-size: 11px;
-    font-weight: bold;
-    color: #555;
-    display: block;
-    margin-bottom: 5px;
-}
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-/* BOX-SIZING GARANTE QUE O CAMPO NÃO ULTRAPASSE A BORDA */
-select, input {
-    width: 100%;
-    padding: 14px;
-    border-radius: 10px;
-    border: 1px solid #ddd;
-    box-sizing: border-box; 
-    background: #fff;
-    font-size: 14px;
-}
+        label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #444;
+            margin-left: 5px;
+        }
 
-/* BOTÃO CTA ORIGINAL */
-button {
-    width: 100%;
-    padding: 16px;
-    border: none;
-    border-radius: 50px;
-    background: linear-gradient(45deg, var(--laranja), var(--roxo));
-    color: white;
-    font-weight: 800;
-    cursor: pointer;
-    margin-top: 15px;
-    transition: transform 0.2s;
-}
+        select, input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            border-radius: 10px;
+            border: 1.5px solid #eee;
+            box-sizing: border-box;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
 
-button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
+        select:focus, input:focus {
+            outline: none;
+            border-color: var(--secundaria);
+        }
 
-/* WHATSAPP */
-.whatsapp-float {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: #25d366;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 28px;
-    text-decoration: none;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    z-index: 999;
-}
+        /* Botão com Gradiente Real */
+        button {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(45deg, var(--primaria), var(--secundaria));
+            color: white;
+            font-weight: 800;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.2s;
+            box-shadow: 0 4px 15px rgba(106, 44, 255, 0.3);
+        }
 
-.footer-text {
-    font-size: 10px;
-    color: #999;
-    margin-top: 15px;
-}
-</style>
+        button:active { transform: scale(0.98); }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #25d366;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 100;
+        }
+
+        .footer-text {
+            font-size: 11px;
+            color: #aaa;
+            margin-top: 20px;
+        }
+    </style>
 </head>
-
 <body>
 
 <div class="container">
-    <img src="https://i.ibb.co/HDWMYfkJ/venda-logo.jpg" class="logo">
+    <img src="https://i.ibb.co/HDWMYfkJ/venda-logo.jpg" alt="Logo" class="logo">
 
     <div class="title">Encontre seu imóvel ideal</div>
-    <div class="sub">Filtramos as melhores opções pra você</div>
-    <div class="urgencia">🔥 Temos imóveis com desconto HOJE</div>
+    <div class="sub">Filtramos as melhores opções para você</div>
+    <div class="urgencia-tag">🔥 IMÓVEIS COM DESCONTO HOJE</div>
 
-    <form>
+    <form id="formLead">
         <div class="field-group show">
             <label>Seu nome</label>
-            <input type="text" id="nome">
+            <input type="text" id="nome" placeholder="Ex: João Silva" oninput="validarForm()">
         </div>
 
         <div class="field-group show">
-            <label>Seu telefone</label>
-            <input type="tel" id="telefone">
+            <label>Seu telefone (WhatsApp)</label>
+            <input type="tel" id="telefone" placeholder="(22) 99999-9999" maxlength="15" oninput="mascaraTel(this); validarForm()">
         </div>
 
         <div class="field-group show">
             <label>O que você busca?</label>
             <select id="tipo_servico" onchange="atualizarFunil()">
                 <option value="">Escolha...</option>
-                <option value="comprar">Comprar</option>
-                <option value="alugar_fixo">Alugar</option>
-                <option value="temporada">Temporada</option>
+                <option value="Comprar">Comprar</option>
+                <option value="Alugar">Alugar</option>
+                <option value="Temporada">Temporada</option>
             </select>
         </div>
 
         <div id="f_urgencia" class="field-group">
-            <label>Quando pretende fechar?</label>
-            <select id="urgencia">
+            <label>Pretende fechar quando?</label>
+            <select id="urgencia" onchange="validarForm()">
                 <option value="">Selecione</option>
-                <option>Imediato</option>
-                <option>Até 30 dias</option>
-                <option>Até 3 meses</option>
-                <option>Só pesquisando</option>
+                <option value="Imediato">Imediato</option>
+                <option value="Até 30 dias">Até 30 dias</option>
+                <option value="Só pesquisando">Apenas pesquisando</option>
             </select>
         </div>
 
         <div id="f_quartos" class="field-group">
-            <label>Quartos</label>
-            <select id="quartos">
+            <label>Mínimo de quartos</label>
+            <select id="quartos" onchange="validarForm()">
                 <option value="">Selecione</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3+</option>
-            </select>
-        </div>
-
-        <div id="f_piscina" class="field-group">
-            <label>Piscina?</label>
-            <select id="piscina">
-                <option value="">Selecione</option>
-                <option>Sim</option>
-                <option>Não</option>
+                <option value="1">1 quarto</option>
+                <option value="2">2 quartos</option>
+                <option value="3+">3 ou mais</option>
             </select>
         </div>
 
         <div id="f_credito" class="field-group">
-            <label>Crédito aprovado?</label>
-            <select id="credito">
+            <label>Possui crédito aprovado?</label>
+            <select id="credito" onchange="validarForm()">
                 <option value="">Selecione</option>
-                <option>Sim</option>
-                <option>Em análise</option>
-                <option>Não</option>
+                <option value="Sim">Sim</option>
+                <option value="Não">Não / Preciso de ajuda</option>
             </select>
         </div>
 
@@ -222,50 +228,82 @@ button:disabled {
         </button>
     </form>
 
-    <div class="footer-text">Venda Casas RJ</div>
+    <div class="footer-text">© 2024 Venda Casas RJ - Creci J-8888</div>
 </div>
 
-<a href="https://wa.me/5522992414173?text=Olá!%20Vim%20pelo%20site" class="whatsapp-float" target="_blank">
-   💬
+<a href="https://wa.me/5522992414173" class="whatsapp-float" target="_blank">
+    <span>➔</span>
 </a>
 
 <script>
+// Máscara de Telefone
+function mascaraTel(i) {
+    let v = i.value.replace(/\D/g, "");
+    v = v.replace(/^(\d{2})(\d)/g, "($1) $2");
+    v = v.replace(/(\d)(\d{4})$/, "$1-$2");
+    i.value = v;
+}
+
 function atualizarFunil() {
     const tipo = document.getElementById('tipo_servico').value;
-    if (tipo === "") return;
+    
+    // Reseta visual dos campos
+    document.getElementById('f_urgencia').classList.remove('show');
+    document.getElementById('f_quartos').classList.remove('show');
+    document.getElementById('f_credito').classList.remove('show');
 
-    document.getElementById('btnEnviar').disabled = false;
-    document.getElementById('f_urgencia').classList.add('show');
-    document.getElementById('f_quartos').classList.add('show');
-    document.getElementById('f_piscina').classList.add('show');
-
-    if (tipo === "comprar") {
-        document.getElementById('f_credito').classList.add('show');
-    } else {
-        document.getElementById('f_credito').classList.remove('show');
+    if (tipo !== "") {
+        document.getElementById('f_urgencia').classList.add('show');
+        document.getElementById('f_quartos').classList.add('show');
+        
+        if (tipo === "Comprar") {
+            document.getElementById('f_credito').classList.add('show');
+        }
     }
+    validarForm();
+}
+
+function validarForm() {
+    const nome = document.getElementById('nome').value;
+    const tel = document.getElementById('telefone').value.length >= 14;
+    const tipo = document.getElementById('tipo_servico').value;
+    const urgencia = document.getElementById('urgencia').value;
+    const quartos = document.getElementById('quartos').value;
+    
+    let obrigatorios = nome && tel && tipo && urgencia && quartos;
+    
+    // Se for comprar, crédito vira obrigatório
+    if (tipo === "Comprar") {
+        const credito = document.getElementById('credito').value;
+        if (!credito) obrigatorios = false;
+    }
+
+    document.getElementById('btnEnviar').disabled = !obrigatorios;
 }
 
 function enviarZap() {
-    const nome = document.getElementById('nome').value;
-    const tel = document.getElementById('telefone').value;
-    const urgencia = document.getElementById('urgencia').value;
-    const tipo = document.getElementById('tipo_servico').value;
-    const quartos = document.getElementById('quartos').value;
-    const piscina = document.getElementById('piscina').value;
+    const dados = {
+        nome: document.getElementById('nome').value,
+        tel: document.getElementById('telefone').value,
+        tipo: document.getElementById('tipo_servico').value,
+        urgencia: document.getElementById('urgencia').value,
+        quartos: document.getElementById('quartos').value,
+        credito: document.getElementById('credito').value || "N/A"
+    };
 
-    if (!nome || !tel || !urgencia || !tipo || !quartos || !piscina) {
-        alert("Preencha tudo corretamente");
-        return;
+    if (dados.urgencia === "Só pesquisando") {
+        alert("Entendido! Enviaremos nosso catálogo geral, mas priorizamos o atendimento de quem tem urgência.");
     }
 
-    if (urgencia === "Só pesquisando") {
-        alert("Estamos atendendo clientes prontos pra fechar 😉");
-        return;
-    }
+    const msg = `*NOVO LEAD QUALIFICADO* 🏠%0A%0A` +
+                `*Nome:* ${dados.nome}%0A` +
+                `*WhatsApp:* ${dados.tel}%0A` +
+                `*Interesse:* ${dados.tipo}%0A` +
+                `*Prazo:* ${dados.urgencia}%0A` +
+                `*Quartos:* ${dados.quartos}%0A` +
+                `*Crédito:* ${dados.credito}`;
 
-    const msg = `📊 LEAD QUALIFICADO\n\nNome: ${nome}\nTelefone: ${tel}\nPrazo: ${urgencia}\nTipo: ${tipo}\nQuartos: ${quartos}\nPiscina: ${piscina}`;
-    window.open(`https://wa.me/5522992414173?text=${encodeURIComponent(msg)}`);
+    window.open(`https://wa.me/5522992414173?text=${msg}`);
 }
 </script>
 
